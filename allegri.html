@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Allegri al Milan — Il Conto alla Rovescia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+  /* ══════════════════════════════════════════
+     RESET & VARIABLES
+  ══════════════════════════════════════════ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rosso:      #C9001A;
+    --rosso-dk:   #8a0012;
+    --nero:       #0D0D0D;
+    --nero-2:     #141416;
+    --nero-3:     #1c1c1f;
+    --border:     #272729;
+    --bianco:     #F5F2ED;
+    --bianco-2:   #c8c5c0;
+    --muted:      #67656a;
+    --mono:    'DM Mono', monospace;
+    --sans:    'DM Sans', sans-serif;
+    --disp:    'Bebas Neue', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--nero);
+    color: var(--bianco);
+    font-family: var(--sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.032'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    pointer-events: none;
+    z-index: 9000;
+  }
+
+  /* ══════════════════════════════════════════
+     LANGUAGE SWITCHER — fisso in alto a destra
+  ══════════════════════════════════════════ */
+  .lang-switcher {
+    position: fixed;
+    top: 18px;
+    right: 20px;
+    z-index: 8000;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--nero-2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,.5);
+  }
+
+  .lang-btn {
+    font-family: var(--mono);
+    font-size: .65rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: transparent;
+    border: none;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: background .18s, color .18s;
+    position: relative;
+  }
+
+  .lang-btn:first-child::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 25%; bottom: 25%;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .lang-btn.active {
+    background: var(--rosso);
+    color: #fff;
+  }
+
+  .lang-btn:hover:not(.active) {
+    background: var(--nero-3);
+    color: var(--bianco);
+  }
+
+  /* ══════════════════════════════════════════
+     HERO
+  ══════════════════════════════════════════ */
+  .hero {
+    position: relative;
+    width: 100%;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+
+  .hero-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    filter: grayscale(25%) contrast(1.08);
+    z-index: 0;
+  }
+
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom,
+      rgba(13,13,13,.6)   0%,
+      rgba(13,13,13,.05) 30%,
+      rgba(201,0,26,.12) 60%,
+      rgba(13,13,13,.98) 100%);
+    z-index: 1;
+  }
+
+  .hero-stripe {
+    position: absolute;
+    top: 0; left: -5%;
+    width: 42%; height: 100%;
+    background: linear-gradient(120deg, rgba(201,0,26,.22) 0%, transparent 65%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 0 24px 64px;
+    width: 100%;
+    max-width: 840px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--rosso);
+    padding: 6px 18px 6px 14px;
+    margin-bottom: 30px;
+    animation: fadeDown .9s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    animation: pulse 1.4s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  .hero-title {
+    font-family: var(--disp);
+    font-size: clamp(4rem, 13.5vw, 10rem);
+    line-height: .88;
+    color: var(--bianco);
+    text-shadow: 0 4px 40px rgba(0,0,0,.85);
+    animation: fadeDown .9s .12s ease both;
+  }
+
+  .hero-title .cognome { display: block; color: var(--rosso); }
+  .hero-title .nome    { display: block; }
+
+  .hero-quote {
+    margin-top: 24px;
+    font-family: var(--mono);
+    font-size: clamp(.8rem, 2.2vw, 1rem);
+    color: var(--bianco-2);
+    line-height: 1.75;
+    text-shadow: 0 2px 14px rgba(0,0,0,.95);
+    animation: fadeDown .9s .25s ease both;
+  }
+
+  .hero-quote strong { color: var(--bianco); font-weight: 600; }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 26px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    opacity: .5;
+    animation: bounce 2.2s ease-in-out infinite;
+  }
+
+  .hero-scroll span {
+    font-family: var(--mono);
+    font-size: .58rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--bianco);
+  }
+
+  /* ══════════════════════════════════════════
+     MAIN LAYOUT
+  ══════════════════════════════════════════ */
+  .main {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 72px 20px 100px;
+  }
+
+  .sh {
+    display: flex; align-items: flex-start; gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .sh-bar {
+    width: 4px; height: 32px;
+    background: var(--rosso);
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .sh-title {
+    font-family: var(--disp);
+    font-size: clamp(1.7rem, 4.5vw, 2.4rem);
+    letter-spacing: .04em;
+    color: var(--bianco);
+    line-height: 1;
+  }
+
+  .sh-sub {
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--rosso) 0%, transparent 70%);
+    margin: 60px 0;
+    opacity: .3;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--nero-2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 34px 30px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--rosso) 0%, transparent 80%);
+  }
+
+  .card.full-top::before { background: var(--rosso); }
+
+  .card-label {
+    font-family: var(--mono);
+    font-size: .64rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  /* ── Stats strip ── */
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+
+  .stat-item {
+    background: var(--nero-2);
+    padding: 20px 14px;
+    text-align: center;
+  }
+
+  .stat-val {
+    font-family: var(--disp);
+    font-size: clamp(1.5rem, 4vw, 2.3rem);
+    color: var(--rosso);
+    display: block; line-height: 1;
+  }
+
+  .stat-lbl {
+    font-family: var(--mono);
+    font-size: .58rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+    display: block; line-height: 1.45;
+  }
+
+  /* ── Player card ── */
+  .player-card {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0;
+    background: var(--nero-2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+
+  .photo-col {
+    position: relative;
+    background: var(--nero-3);
+    overflow: hidden;
+  }
+
+  .photo-col img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: grayscale(15%);
+    display: block;
+    min-height: 290px;
+  }
+
+  .photo-col::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, transparent 55%, var(--nero-2) 100%);
+    pointer-events: none;
+  }
+
+  .photo-num {
+    position: absolute;
+    bottom: 8px; left: 10px;
+    font-family: var(--disp);
+    font-size: 5.5rem;
+    line-height: 1;
+    color: var(--rosso);
+    opacity: .22;
+    pointer-events: none;
+  }
+
+  .countdown-col {
+    padding: 28px 26px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+
+  /* ── Countdown ── */
+  .cd-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+    margin-bottom: 9px;
+  }
+
+  .tu {
+    text-align: center;
+    background: var(--nero);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 14px 6px 12px;
+  }
+
+  .tv {
+    font-family: var(--disp);
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    line-height: 1;
+    color: var(--bianco);
+    display: block;
+    transition: color .14s, transform .14s;
+  }
+
+  .tv.flash { color: var(--rosso); transform: scale(1.07); }
+
+  .tl {
+    font-family: var(--mono);
+    font-size: .56rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+    display: block;
+  }
+
+  /* ── Expiry banner ── */
+  .expiry-banner {
+    background: var(--rosso);
+    border-radius: 3px;
+    padding: 30px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+
+  .expiry-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -8%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.07);
+    pointer-events: none;
+  }
+
+  .exp-eye {
+    font-family: var(--mono);
+    font-size: .66rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.65);
+    margin-bottom: 10px;
+  }
+
+  .exp-date {
+    font-family: var(--disp);
+    font-size: clamp(2rem, 5.5vw, 3.8rem);
+    color: var(--bianco);
+    letter-spacing: .06em;
+    line-height: 1;
+  }
+
+  .exp-note {
+    font-family: var(--mono);
+    font-size: .7rem;
+    color: rgba(255,255,255,.6);
+    margin-top: 9px;
+    font-style: italic;
+  }
+
+  /* ── Money ── */
+  .money-big {
+    font-family: var(--disp);
+    font-size: clamp(2.6rem, 7vw, 5.2rem);
+    line-height: 1.05;
+    color: var(--bianco);
+    letter-spacing: .02em;
+    word-break: break-all;
+  }
+
+  .money-big .eur {
+    font-size: .42em;
+    color: var(--rosso);
+    vertical-align: top;
+    margin-top: .22em;
+    margin-right: 3px;
+  }
+
+  .money-note {
+    font-family: var(--mono);
+    font-size: .7rem;
+    color: var(--muted);
+    margin-top: 12px;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .money-note strong { color: var(--rosso); font-style: normal; }
+
+  /* ── Rate grid ── */
+  .rate-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  @media (min-width: 520px) {
+    .rate-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .rate-item {
+    background: var(--nero);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 16px 13px;
+  }
+
+  .rate-lbl {
+    font-family: var(--mono);
+    font-size: .6rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .rate-val {
+    font-family: var(--disp);
+    font-size: clamp(1.25rem, 3vw, 1.9rem);
+    color: var(--rosso);
+    line-height: 1;
+  }
+
+  /* ── Quote ── */
+  .quote-block {
+    border-left: 3px solid var(--rosso);
+    padding: 16px 20px;
+    background: var(--nero-3);
+    border-radius: 0 3px 3px 0;
+    margin-bottom: 14px;
+  }
+
+  .quote-text {
+    font-family: var(--sans);
+    font-size: clamp(.9rem, 2.3vw, 1rem);
+    color: var(--bianco);
+    font-style: italic;
+    line-height: 1.65;
+  }
+
+  .quote-attr {
+    font-family: var(--mono);
+    font-size: .62rem;
+    color: var(--muted);
+    margin-top: 9px;
+    letter-spacing: .08em;
+  }
+
+  /* ── Pulse dot ── */
+  .dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    background: var(--rosso);
+    border-radius: 50%;
+    animation: pulse 1.3s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 0 20px 60px;
+  }
+
+  .footer-line {
+    width: 36px; height: 2px;
+    background: var(--rosso);
+    margin: 0 auto 18px;
+    opacity: .4;
+  }
+
+  .footer-logo {
+    font-family: var(--disp);
+    font-size: 1.3rem;
+    letter-spacing: .12em;
+    color: var(--rosso);
+    margin-bottom: 12px;
+  }
+
+  .footer-text {
+    font-family: var(--mono);
+    font-size: .61rem;
+    color: var(--muted);
+    letter-spacing: .09em;
+    line-height: 2.2;
+  }
+
+  /* ══════════════════════════════════════════
+     ANIMATIONS
+  ══════════════════════════════════════════ */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: .28; transform: scale(.72); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(8px); }
+  }
+
+  .animate {
+    animation: fadeUp .6s ease both;
+    animation-play-state: paused;
+  }
+
+  .d1 { animation-delay: .08s; }
+  .d2 { animation-delay: .18s; }
+  .d3 { animation-delay: .3s; }
+
+  /* ══════════════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════════════ */
+  @media (max-width: 640px) {
+    .player-card { grid-template-columns: 1fr; }
+
+    .photo-col img {
+      min-height: 200px;
+      max-height: 240px;
+      object-position: center 18%;
+    }
+
+    .photo-col::after {
+      background: linear-gradient(to bottom, transparent 55%, var(--nero-2) 100%);
+    }
+
+    .photo-num { font-size: 4rem; }
+  }
+
+  @media (max-width: 480px) {
+    .main { padding: 48px 14px 80px; }
+    .card { padding: 22px 16px; }
+    .countdown-col { padding: 20px 16px; }
+    .cd-grid { gap: 7px; }
+    .tv { font-size: clamp(1.7rem, 9vw, 2.8rem); }
+    .lang-btn { padding: 8px 10px; font-size: .6rem; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     LANGUAGE SWITCHER
+══════════════════════════════════════════ -->
+<div class="lang-switcher" role="group" aria-label="Language selector">
+  <button class="lang-btn active" id="btn-it" onclick="setLang('it')" aria-pressed="true">🇮🇹 IT</button>
+  <button class="lang-btn"        id="btn-en" onclick="setLang('en')" aria-pressed="false">🇬🇧 EN</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero">
+  <img
+    class="hero-img"
+    src="https://img-api.cloud.mediaset.net/api/images/kn/v1/image_opening/800/600/104839261?r=21"
+    alt="Massimiliano Allegri allenatore Milan"
+    onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Allegri_Juventus_2014.jpg/1280px-Allegri_Juventus_2014.jpg'; this.onerror=null;"
+  />
+  <div class="hero-overlay"></div>
+  <div class="hero-stripe"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge" data-i18n="hero.badge">⚽ AC Milan · Contratto attivo</div>
+
+    <h1 class="hero-title">
+      <span class="nome">Massimiliano</span>
+      <span class="cognome">Allegri</span>
+    </h1>
+
+    <p class="hero-quote" data-i18n-html="hero.quote">
+      <strong>"Il calcio è semplice."</strong> — Allegri, ogni conferenza stampa, da vent'anni.<br/>
+      Semplice come <strong>€&thinsp;174,37 ogni minuto</strong>, ventiquattro ore al giorno.
+    </p>
+  </div>
+
+  <div class="hero-scroll">
+    <span data-i18n="hero.scroll">Scorri</span>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 3v10M3 9l5 5 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     MAIN
+══════════════════════════════════════════ -->
+<main class="main">
+
+  <!-- Quote apertura -->
+  <div class="quote-block animate d1">
+    <p class="quote-text" data-i18n="q1.text">"Non dobbiamo cercare il bel gioco. Dobbiamo cercare i risultati."</p>
+    <p class="quote-attr" data-i18n="q1.attr">— M. Allegri · ripetuto circa 847 volte dal 2010 ad oggi · invariato</p>
+  </div>
+
+  <!-- Stats rapide -->
+  <div class="stats-strip animate d2">
+    <div class="stat-item">
+      <span class="stat-val">€ 5,5M</span>
+      <span class="stat-lbl" data-i18n="stats.salary">Stipendio annuo</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-val">€ 11M</span>
+      <span class="stat-lbl" data-i18n="stats.total">Totale contratto</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-val">730</span>
+      <span class="stat-lbl" data-i18n="stats.days">Giorni totali</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── COUNTDOWN ── -->
+  <div class="sh animate d1">
+    <div class="sh-bar"></div>
+    <div>
+      <h2 class="sh-title" data-i18n="cd.title">Conto alla rovescia</h2>
+      <p class="sh-sub"   data-i18n="cd.sub">Alla scadenza del contratto mancano ancora…</p>
+    </div>
+  </div>
+
+  <div class="player-card animate d2">
+    <!-- Foto -->
+    <div class="photo-col">
+      <img
+        src="https://preview.redd.it/are-you-ready-for-allegri-ball-v0-i2610gpwkr3f1.jpeg?width=1024&format=pjpg&auto=webp&s=23cbeb751d772aa5963bb7020d0292fddb5b989c"
+        alt="Allegri AC Milan scheda"
+        onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Allegri_Juventus_2014.jpg/800px-Allegri_Juventus_2014.jpg'; this.onerror=null;"
+      />
+      <div class="photo-num">1</div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown-col">
+      <p class="card-label">
+        <span class="dot"></span>
+        <span data-i18n="cd.live">Live · aggiornato ogni secondo</span>
+      </p>
+
+      <div class="cd-grid">
+        <div class="tu">
+          <span class="tv" id="cd-anni">–</span>
+          <span class="tl" data-i18n="cd.years">Anni</span>
+        </div>
+        <div class="tu">
+          <span class="tv" id="cd-mesi">–</span>
+          <span class="tl" data-i18n="cd.months">Mesi</span>
+        </div>
+        <div class="tu">
+          <span class="tv" id="cd-giorni">–</span>
+          <span class="tl" data-i18n="cd.days">Giorni</span>
+        </div>
+      </div>
+
+      <div class="cd-grid">
+        <div class="tu">
+          <span class="tv" id="cd-ore">–</span>
+          <span class="tl" data-i18n="cd.hours">Ore</span>
+        </div>
+        <div class="tu">
+          <span class="tv" id="cd-minuti">–</span>
+          <span class="tl" data-i18n="cd.minutes">Minuti</span>
+        </div>
+        <div class="tu">
+          <span class="tv" id="cd-secondi">–</span>
+          <span class="tl" data-i18n="cd.seconds">Secondi</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expiry banner -->
+  <div class="expiry-banner animate d3">
+    <p class="exp-eye"  data-i18n="exp.label">📅 Data scadenza contratto</p>
+    <p class="exp-date" data-i18n="exp.date">30 GIUGNO 2027</p>
+    <p class="exp-note" data-i18n="exp.note">salvo sorprese — e col Milan le sorprese sono all'ordine del giorno</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── GUADAGNO ── -->
+  <div class="sh animate d1">
+    <div class="sh-bar"></div>
+    <div>
+      <h2 class="sh-title" data-i18n="earn.title">Ha già intascato</h2>
+      <p class="sh-sub"   data-i18n="earn.sub">Dal 1° giugno 2025 ad adesso · in tempo reale</p>
+    </div>
+  </div>
+
+  <div class="card animate d2">
+    <p class="card-label" data-i18n="earn.label">💰 Guadagno totale accumulato</p>
+    <div class="money-big">
+      <span class="eur">€</span><span id="earned-display">0,00</span>
+    </div>
+    <p class="money-note">
+      <span data-i18n="earn.note">Basato su €5.500.000/anno · calcolato al secondo dal 1° giugno 2025</span><br/>
+      <strong>€ 174,37/min · € 10.462,33/h · € 251.155,93/<span data-i18n="earn.day">giorno</span></strong>
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── COSTO LIVE ── -->
+  <div class="sh animate d1">
+    <div class="sh-bar"></div>
+    <div>
+      <h2 class="sh-title" data-i18n="live.title">Costo in tempo reale</h2>
+      <p class="sh-sub"   data-i18n="live.sub">Quanto sta costando al Milan — ora</p>
+    </div>
+  </div>
+
+  <div class="card full-top animate d2">
+    <p class="card-label">
+      <span class="dot"></span>
+      <span data-i18n="live.label">Live · il contatore non si ferma mai</span>
+    </p>
+    <div class="rate-grid">
+      <div class="rate-item">
+        <p class="rate-lbl" data-i18n="live.sec">Al secondo</p>
+        <p class="rate-val" id="per-second">–</p>
+      </div>
+      <div class="rate-item">
+        <p class="rate-lbl" data-i18n="live.min">Al minuto</p>
+        <p class="rate-val" id="per-minute">–</p>
+      </div>
+      <div class="rate-item">
+        <p class="rate-lbl" data-i18n="live.hour">All'ora</p>
+        <p class="rate-val" id="per-hour">–</p>
+      </div>
+      <div class="rate-item">
+        <p class="rate-lbl" data-i18n="live.day">Al giorno</p>
+        <p class="rate-val" id="per-day">–</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-block animate d3">
+    <p class="quote-text" data-i18n="q2.text">"Quando finirà il contratto, saremo tutti più poveri — tranne lui."</p>
+    <p class="quote-attr" data-i18n="q2.attr">— Il tifoso del Milan medio · anno domini 2025–2027</p>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-line"></div>
+  <p class="footer-logo">⚫🔴 ACM</p>
+  <p class="footer-text" data-i18n-html="footer.text">
+    Dati basati su contratto pubblico · Stipendio netto €5.500.000/anno<br/>
+    Calcoli: EURO_AL_SECONDO = 5.500.000 ÷ (365 × 86.400)<br/>
+    Questo sito non esprime giudizi. Solo matematica impietosa.<br/>
+    Forza Milan — ma anche forza portafoglio.
+  </p>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+/* ════════════════════════════════════════════
+   i18n — Dizionario IT / EN
+════════════════════════════════════════════ */
+const STRINGS = {
+  it: {
+    'hero.badge':   '⚽ AC Milan · Contratto attivo',
+    'hero.quote':   '<strong>"Il calcio è semplice."</strong> — Allegri, ogni conferenza stampa, da vent\'anni.<br/>Semplice come <strong>€\u202F174,37 ogni minuto</strong>, ventiquattro ore al giorno.',
+    'hero.scroll':  'Scorri',
+    'q1.text':      '"Non dobbiamo cercare il bel gioco. Dobbiamo cercare i risultati."',
+    'q1.attr':      '— M. Allegri · ripetuto circa 847 volte dal 2010 ad oggi · invariato',
+    'stats.salary': 'Stipendio annuo',
+    'stats.total':  'Totale contratto',
+    'stats.days':   'Giorni totali',
+    'cd.title':     'Conto alla rovescia',
+    'cd.sub':       'Alla scadenza del contratto mancano ancora…',
+    'cd.live':      'Live · aggiornato ogni secondo',
+    'cd.years':     'Anni',
+    'cd.months':    'Mesi',
+    'cd.days':      'Giorni',
+    'cd.hours':     'Ore',
+    'cd.minutes':   'Minuti',
+    'cd.seconds':   'Secondi',
+    'exp.label':    '📅 Data scadenza contratto',
+    'exp.date':     '30 GIUGNO 2027',
+    'exp.note':     'salvo sorprese — e col Milan le sorprese sono all\'ordine del giorno',
+    'earn.title':   'Ha già intascato',
+    'earn.sub':     'Dal 1° giugno 2025 ad adesso · in tempo reale',
+    'earn.label':   '💰 Guadagno totale accumulato',
+    'earn.note':    'Basato su €5.500.000/anno · calcolato al secondo dal 1° giugno 2025',
+    'earn.day':     'giorno',
+    'live.title':   'Costo in tempo reale',
+    'live.sub':     'Quanto sta costando al Milan — ora',
+    'live.label':   'Live · il contatore non si ferma mai',
+    'live.sec':     'Al secondo',
+    'live.min':     'Al minuto',
+    'live.hour':    'All\'ora',
+    'live.day':     'Al giorno',
+    'q2.text':      '"Quando finirà il contratto, saremo tutti più poveri — tranne lui."',
+    'q2.attr':      '— Il tifoso del Milan medio · anno domini 2025–2027',
+    'footer.text':  'Dati basati su contratto pubblico · Stipendio netto €5.500.000/anno<br/>Calcoli: EURO_AL_SECONDO = 5.500.000 ÷ (365 × 86.400)<br/>Questo sito non esprime giudizi. Solo matematica impietosa.<br/>Forza Milan — ma anche forza portafoglio.',
+  },
+  en: {
+    'hero.badge':   '⚽ AC Milan · Contract active',
+    'hero.quote':   '<strong>"Football is simple."</strong> — Allegri, every press conference, for twenty years.<br/>As simple as <strong>€\u202F174.37 every minute</strong>, twenty-four hours a day.',
+    'hero.scroll':  'Scroll',
+    'q1.text':      '"We must not look for beautiful football. We must look for results."',
+    'q1.attr':      '— M. Allegri · repeated approximately 847 times since 2010 · unchanged',
+    'stats.salary': 'Annual salary',
+    'stats.total':  'Total contract',
+    'stats.days':   'Total days',
+    'cd.title':     'Countdown',
+    'cd.sub':       'Until the contract expires…',
+    'cd.live':      'Live · updated every second',
+    'cd.years':     'Years',
+    'cd.months':    'Months',
+    'cd.days':      'Days',
+    'cd.hours':     'Hours',
+    'cd.minutes':   'Minutes',
+    'cd.seconds':   'Seconds',
+    'exp.label':    '📅 Contract expiry date',
+    'exp.date':     '30 JUNE 2027',
+    'exp.note':     'unless surprises occur — and with AC Milan, surprises are always on the agenda',
+    'earn.title':   'Already pocketed',
+    'earn.sub':     'From 1 June 2025 until now · real time',
+    'earn.label':   '💰 Total accumulated earnings',
+    'earn.note':    'Based on €5,500,000/year · calculated per second from 1 June 2025',
+    'earn.day':     'day',
+    'live.title':   'Real-time cost',
+    'live.sub':     'What he is costing AC Milan — right now',
+    'live.label':   'Live · the meter never stops',
+    'live.sec':     'Per second',
+    'live.min':     'Per minute',
+    'live.hour':    'Per hour',
+    'live.day':     'Per day',
+    'q2.text':      '"When the contract ends, we\'ll all be poorer — except him."',
+    'q2.attr':      '— The average AC Milan fan · anno domini 2025–2027',
+    'footer.text':  'Data based on public contract · Net salary €5,500,000/year<br/>Calculation: EURO_PER_SECOND = 5,500,000 ÷ (365 × 86,400)<br/>This site makes no judgements. Just ruthless mathematics.<br/>Forza Milan — and forza wallet.',
+  }
+};
+
+/* ════════════════════════════════════════════
+   Language switch
+════════════════════════════════════════════ */
+let currentLang = 'it';
+
+// Numero formattato nella locale corretta
+function fmt(v) {
+  return new Intl.NumberFormat(currentLang === 'it' ? 'it-IT' : 'en-GB', {
+    minimumFractionDigits: 2, maximumFractionDigits: 2
+  }).format(v);
+}
+
+function applyTranslations(lang) {
+  const d = STRINGS[lang];
+
+  // data-i18n → textContent
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (d[key] !== undefined) el.textContent = d[key];
+  });
+
+  // data-i18n-html → innerHTML (usato per testi con tag <br/>, <strong>)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (d[key] !== undefined) el.innerHTML = d[key];
+  });
+
+  // Aggiorna title della pagina
+  document.title = lang === 'it'
+    ? 'Allegri al Milan — Il Conto alla Rovescia'
+    : 'Allegri at Milan — The Countdown';
+
+  // Aggiorna lang attribute sull'html
+  document.documentElement.lang = lang;
+}
+
+function setLang(lang) {
+  if (lang === currentLang) return;
+  currentLang = lang;
+
+  // Bottoni
+  document.getElementById('btn-it').classList.toggle('active', lang === 'it');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-it').setAttribute('aria-pressed', lang === 'it');
+  document.getElementById('btn-en').setAttribute('aria-pressed', lang === 'en');
+
+  applyTranslations(lang);
+
+  // Ricalcola le tariffe nel formato giusto
+  refreshRates();
+}
+
+/* ════════════════════════════════════════════
+   Calcoli finanziari
+════════════════════════════════════════════ */
+const STIPENDIO_ANNUO = 5_500_000;
+const SECONDI_ANNO    = 365 * 24 * 3600;
+const EPS             = STIPENDIO_ANNUO / SECONDI_ANNO; // euro al secondo
+
+const INIZIO = new Date('2025-06-01T00:00:00Z');
+const FINE   = new Date('2027-07-01T00:00:00Z');
+
+const pad = n => String(Math.floor(n)).padStart(2, '0');
+
+function refreshRates() {
+  document.getElementById('per-second').textContent = fmt(EPS);
+  document.getElementById('per-minute').textContent = fmt(EPS * 60);
+  document.getElementById('per-hour'  ).textContent = fmt(EPS * 3600);
+  document.getElementById('per-day'   ).textContent = fmt(EPS * 86400);
+}
+
+/* ════════════════════════════════════════════
+   Countdown preciso a calendario
+════════════════════════════════════════════ */
+function countdown(now, target) {
+  if (target <= now) return {Y:0,M:0,D:0,h:0,m:0,s:0};
+  let d1 = new Date(now), d2 = new Date(target);
+  let Y = d2.getUTCFullYear()-d1.getUTCFullYear();
+  let M = d2.getUTCMonth()   -d1.getUTCMonth();
+  let D = d2.getUTCDate()    -d1.getUTCDate();
+  let h = d2.getUTCHours()   -d1.getUTCHours();
+  let m = d2.getUTCMinutes() -d1.getUTCMinutes();
+  let s = d2.getUTCSeconds() -d1.getUTCSeconds();
+  if (s < 0) { s += 60; m--; }
+  if (m < 0) { m += 60; h--; }
+  if (h < 0) { h += 24; D--; }
+  if (D < 0) {
+    D += new Date(Date.UTC(d2.getUTCFullYear(), d2.getUTCMonth(), 0)).getUTCDate();
+    M--;
+  }
+  if (M < 0) { M += 12; Y--; }
+  return {Y, M, D, h, m, s};
+}
+
+/* ════════════════════════════════════════════
+   Flash helper
+════════════════════════════════════════════ */
+const cache = {};
+function setVal(id, val) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const str = String(val);
+  if (str === cache[id]) return;
+  el.textContent = str;
+  el.classList.add('flash');
+  setTimeout(() => el.classList.remove('flash'), 180);
+  cache[id] = str;
+}
+
+/* ════════════════════════════════════════════
+   Tick — ogni secondo
+════════════════════════════════════════════ */
+function tick() {
+  const now = Date.now();
+
+  const cd = countdown(now, FINE.getTime());
+  setVal('cd-anni',    cd.Y);
+  setVal('cd-mesi',    cd.M);
+  setVal('cd-giorni',  cd.D);
+  setVal('cd-ore',     pad(cd.h));
+  setVal('cd-minuti',  pad(cd.m));
+  setVal('cd-secondi', pad(cd.s));
+
+  const sec = Math.max(0, (now - INIZIO.getTime()) / 1000);
+  const el  = document.getElementById('earned-display');
+  if (el) el.textContent = fmt(sec * EPS);
+}
+
+/* ════════════════════════════════════════════
+   Init
+════════════════════════════════════════════ */
+refreshRates();
+tick();
+setInterval(tick, 1000);
+
+// Scroll animation observer
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.animationPlayState = 'running';
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.animate').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
