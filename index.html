@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f3ed">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Per Ali 🫶🏻</title>
+  <link rel="preconnect" href="https://tenor.com">
+  <link rel="preconnect" href="https://media.giphy.com">
+  <style>
+:root {
+  --bg: #f7f3ed;
+  --surface: rgba(255, 255, 255, 0.82);
+  --text: #1e1e1e;
+  --muted: #68645f;
+  --accent: #6f5ee8;
+  --accent-dark: #5948d0;
+  --soft: #ece8ff;
+  --border: rgba(30, 30, 30, 0.09);
+  --shadow: 0 22px 60px rgba(39, 32, 24, 0.12);
+  --radius: 28px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  min-height: 100%;
+  background: var(--bg);
+}
+
+body {
+  min-height: 100dvh;
+  margin: 0;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(255, 214, 181, 0.5), transparent 34%),
+    radial-gradient(circle at 88% 78%, rgba(202, 194, 255, 0.55), transparent 36%),
+    var(--bg);
+  overflow-x: hidden;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+.app {
+  min-height: 100dvh;
+  padding:
+    max(22px, env(safe-area-inset-top))
+    max(18px, env(safe-area-inset-right))
+    max(22px, env(safe-area-inset-bottom))
+    max(18px, env(safe-area-inset-left));
+  display: grid;
+  place-items: center;
+}
+
+.screen {
+  width: min(100%, 460px);
+  animation: screenIn 520ms cubic-bezier(.2, .75, .2, 1) both;
+}
+
+.screen[hidden] {
+  display: none;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  padding: 28px 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  text-align: center;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #ffb37a, #8d7df4);
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  margin: 0;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+
+h1 {
+  font-size: clamp(2.15rem, 11vw, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 9vw, 3.2rem);
+}
+
+.lead {
+  margin: 14px 0 20px;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.gif-button {
+  width: min(100%, 310px);
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  display: grid;
+  gap: 12px;
+}
+
+.gif-button:active .gif-frame {
+  transform: scale(0.97) rotate(-1deg);
+}
+
+.gif-frame {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 14px 35px rgba(30, 30, 30, 0.12);
+  transition: transform 180ms ease;
+}
+
+.gif-frame--square {
+  aspect-ratio: 1;
+}
+
+.gif-frame--wide {
+  margin-top: 22px;
+}
+
+.gif-frame iframe {
+  display: block !important;
+}
+
+.tap-label {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: var(--text);
+  color: #fff;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(30, 30, 30, 0.18);
+}
+
+.details {
+  margin: 24px 0 14px;
+  padding: 17px 16px;
+  border-radius: 20px;
+  background: var(--soft);
+  text-align: left;
+}
+
+.details__label {
+  color: var(--accent-dark);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.details p {
+  margin: 7px 0 0;
+  font-size: 1.08rem;
+  font-weight: 720;
+  line-height: 1.35;
+}
+
+.feedback {
+  min-height: 24px;
+  margin: 13px 0 7px;
+  color: #b4475d;
+  font-weight: 800;
+}
+
+.actions {
+  position: relative;
+  min-height: 150px;
+  margin-top: 6px;
+  padding-top: 8px;
+}
+
+.btn {
+  min-height: 52px;
+  border: 0;
+  border-radius: 17px;
+  font-size: 1rem;
+  font-weight: 850;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--yes {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 0 20px;
+  color: #fff;
+  background: var(--accent);
+  box-shadow: 0 10px 25px rgba(111, 94, 232, 0.34);
+}
+
+.btn--yes:hover {
+  background: var(--accent-dark);
+}
+
+.btn--no {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  z-index: 2;
+  width: 92px;
+  padding: 0 15px;
+  transform: translateX(-50%);
+  color: var(--muted);
+  background: #ece9e4;
+  box-shadow: 0 6px 16px rgba(30, 30, 30, 0.08);
+  will-change: left, top, transform;
+}
+
+.btn--no.is-running {
+  transform: none;
+}
+
+.card--final {
+  padding-bottom: 24px;
+}
+
+.final-main-gif {
+  opacity: 0;
+  transform: translateY(10px) scale(0.97);
+  animation: popIn 620ms 160ms cubic-bezier(.18, .9, .25, 1.15) forwards;
+}
+
+.final-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    opacity 560ms ease,
+    transform 560ms ease,
+    max-height 800ms ease;
+}
+
+.final-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 520px;
+}
+
+.final-message {
+  margin: 24px 0 12px;
+  font-size: clamp(1.55rem, 7vw, 2.15rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.party-gif {
+  display: block;
+  width: min(70%, 230px);
+  margin: 4px auto 0;
+  object-fit: contain;
+}
+
+.tiny-note {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.noscript {
+  margin: 20px;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.confetti {
+  position: fixed;
+  top: -24px;
+  z-index: 10;
+  pointer-events: none;
+  font-size: clamp(18px, 5vw, 28px);
+  animation: confettiFall 1700ms linear forwards;
+}
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes popIn {
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes confettiFall {
+  0% { transform: translate3d(0, -10px, 0) rotate(0deg); opacity: 0; }
+  12% { opacity: 1; }
+  100% { transform: translate3d(var(--drift), 110vh, 0) rotate(520deg); opacity: 0; }
+}
+
+@media (min-width: 520px) {
+  .card {
+    padding: 36px 34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* L'embed Tenor resta visibile, ma il tap viene gestito dal bottone esterno. */
+.gif-button .tenor-gif-embed,
+.gif-button iframe,
+.gif-button a {
+  pointer-events: none !important;
+}
+
+  </style>
+</head>
+<body>
+  <main class="app" aria-live="polite">
+    <section class="screen screen--active" id="welcomeScreen" aria-labelledby="welcomeTitle">
+      <div class="card card--welcome">
+        <p class="eyebrow">una cosa veloce per te</p>
+        <h1 id="welcomeTitle">Ehi Ali 🫶🏻</h1>
+        <p class="lead">clicca su Pocoyo per continuare</p>
+
+        <button class="gif-button" id="startButton" type="button" aria-label="Clicca su Pocoyo per continuare">
+          <span class="gif-frame gif-frame--square" aria-hidden="true">
+            <span class="tenor-gif-embed"
+                  data-postid="940450166223478621"
+                  data-share-method="host"
+                  data-aspect-ratio="1"
+                  data-width="100%">
+              <a href="https://tenor.com/view/pocoyo-pocoyo-dance-pocoyo-moves-baile-gif-940450166223478621">Pocoyo che balla</a>
+            </span>
+          </span>
+          <span class="tap-label">tocca qui</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="screen" id="questionScreen" aria-labelledby="questionTitle" hidden>
+      <div class="card card--question">
+        <p class="eyebrow">domanda importantissima</p>
+        <h2 id="questionTitle">che dici usciamo finalmente?🙃</h2>
+
+        <div class="details">
+          <span class="details__label">dove e quando:</span>
+          <p>quando vuoi basta che ci vediamo🗣️🔥</p>
+        </div>
+
+        <p class="feedback" id="feedback" aria-live="assertive"></p>
+
+        <div class="actions" id="actions">
+          <button class="btn btn--yes" id="yesButton" type="button">sì, ci sto 🫶🏻</button>
+          <button class="btn btn--no" id="noButton" type="button">no</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="finalScreen" aria-labelledby="finalTitle" hidden>
+      <div class="card card--final">
+        <p class="eyebrow">ottima scelta</p>
+        <h2 id="finalTitle">LO SAPEVO 🫶🏻</h2>
+
+        <div class="gif-frame gif-frame--wide final-main-gif">
+          <div class="tenor-gif-embed"
+               data-postid="8867549100158698203"
+               data-share-method="host"
+               data-aspect-ratio="1.48214"
+               data-width="100%">
+            <a href="https://tenor.com/it/view/i-used-to-pray-for-times-like-this-gif-8867549100158698203">I used to pray for times like this</a>
+          </div>
+        </div>
+
+        <div class="final-reveal" id="finalReveal" aria-hidden="true">
+          <p class="final-message">allora ci sentiamo bellissima🙃🙃</p>
+          <img
+            class="party-gif"
+            src="https://media.giphy.com/media/FOw9h3t7oWm34HOuQr/giphy.gif"
+            alt="Pocoyo che festeggia"
+            loading="eager"
+          >
+          <p class="tiny-note">missione compiuta 🫶🏻</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <noscript>
+    <p class="noscript">Per vedere la sorpresa devi attivare JavaScript.</p>
+  </noscript>
+
+  <script>
+const screens = {
+  welcome: document.querySelector('#welcomeScreen'),
+  question: document.querySelector('#questionScreen'),
+  final: document.querySelector('#finalScreen'),
+};
+
+const startButton = document.querySelector('#startButton');
+const yesButton = document.querySelector('#yesButton');
+const noButton = document.querySelector('#noButton');
+const actions = document.querySelector('#actions');
+const feedback = document.querySelector('#feedback');
+const finalReveal = document.querySelector('#finalReveal');
+
+const noMessages = [
+  'risposta sbagliata 😶',
+  'nah, riprova dai',
+  'quel bottone non collabora',
+  'Ali, non fare la difficile 🙃',
+  'ormai resta solo il sì 🫶🏻',
+];
+
+let noAttempts = 0;
+
+function showScreen(name) {
+  Object.entries(screens).forEach(([key, screen]) => {
+    const isActive = key === name;
+    screen.hidden = !isActive;
+    screen.classList.toggle('screen--active', isActive);
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function moveNoButton() {
+  const areaRect = actions.getBoundingClientRect();
+  const buttonRect = noButton.getBoundingClientRect();
+  const padding = 6;
+
+  const maxX = Math.max(padding, areaRect.width - buttonRect.width - padding);
+  const maxY = Math.max(60, areaRect.height - buttonRect.height - padding);
+
+  const x = padding + Math.random() * Math.max(1, maxX - padding);
+  const y = 58 + Math.random() * Math.max(1, maxY - 58);
+
+  noButton.classList.add('is-running');
+  noButton.style.left = `${x}px`;
+  noButton.style.top = `${y}px`;
+  noButton.style.bottom = 'auto';
+
+  feedback.textContent = noMessages[Math.min(noAttempts, noMessages.length - 1)];
+  noAttempts += 1;
+
+  const scale = Math.max(0.66, 1 - noAttempts * 0.06);
+  noButton.style.scale = scale;
+  yesButton.style.transform = `scale(${Math.min(1.08, 1 + noAttempts * 0.012)})`;
+}
+
+function celebrate() {
+  const icons = ['🫶🏻', '🔥', '🙃', '✨'];
+
+  for (let index = 0; index < 18; index += 1) {
+    const item = document.createElement('span');
+    item.className = 'confetti';
+    item.textContent = icons[index % icons.length];
+    item.style.left = `${Math.random() * 100}vw`;
+    item.style.setProperty('--drift', `${Math.random() * 140 - 70}px`);
+    item.style.animationDelay = `${Math.random() * 450}ms`;
+    document.body.appendChild(item);
+
+    window.setTimeout(() => item.remove(), 2300);
+  }
+}
+
+startButton.addEventListener('click', () => {
+  showScreen('question');
+});
+
+yesButton.addEventListener('click', () => {
+  showScreen('final');
+  celebrate();
+
+  window.setTimeout(() => {
+    finalReveal.classList.add('is-visible');
+    finalReveal.setAttribute('aria-hidden', 'false');
+  }, 1800);
+});
+
+['pointerenter', 'pointerdown', 'touchstart', 'click'].forEach((eventName) => {
+  noButton.addEventListener(eventName, (event) => {
+    event.preventDefault();
+    moveNoButton();
+  }, { passive: false });
+});
+
+window.addEventListener('resize', () => {
+  if (noButton.classList.contains('is-running')) {
+    moveNoButton();
+  }
+});
+
+  </script>
+  <script async src="https://tenor.com/embed.js"></script>
+</body>
+</html>
