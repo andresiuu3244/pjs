@@ -1,626 +1,1047 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
   <meta name="theme-color" content="#f7f3ed">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="default"
+  >
+
   <title>Per Ali 🫶🏻</title>
-  <link rel="preconnect" href="https://tenor.com">
+
+  <link rel="preconnect" href="https://media.tenor.com">
+  <link rel="preconnect" href="https://media1.tenor.com">
   <link rel="preconnect" href="https://media.giphy.com">
+
   <style>
-:root {
-  --bg: #f7f3ed;
-  --surface: rgba(255, 255, 255, 0.82);
-  --text: #1e1e1e;
-  --muted: #68645f;
-  --accent: #6f5ee8;
-  --accent-dark: #5948d0;
-  --soft: #ece8ff;
-  --border: rgba(30, 30, 30, 0.09);
-  --shadow: 0 22px 60px rgba(39, 32, 24, 0.12);
-  --radius: 28px;
-}
+    :root {
+      --background: #f7f3ed;
+      --card: rgba(255, 255, 255, 0.88);
+      --text: #1d1d1f;
+      --muted: #6d6964;
+      --purple: #7161e8;
+      --purple-dark: #5a49d2;
+      --purple-soft: #eeeaff;
+      --border: rgba(29, 29, 31, 0.09);
+      --shadow: 0 24px 65px rgba(42, 35, 28, 0.13);
+    }
 
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-html {
-  min-height: 100%;
-  background: var(--bg);
-}
+    html {
+      min-height: 100%;
+      background: var(--background);
+    }
 
-body {
-  min-height: 100dvh;
-  margin: 0;
-  color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
-  background:
-    radial-gradient(circle at 15% 15%, rgba(255, 214, 181, 0.5), transparent 34%),
-    radial-gradient(circle at 88% 78%, rgba(202, 194, 255, 0.55), transparent 36%),
-    var(--bg);
-  overflow-x: hidden;
-}
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      margin: 0;
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
+      color: var(--text);
 
-button {
-  touch-action: manipulation;
-}
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        sans-serif;
 
-.app {
-  min-height: 100dvh;
-  padding:
-    max(22px, env(safe-area-inset-top))
-    max(18px, env(safe-area-inset-right))
-    max(22px, env(safe-area-inset-bottom))
-    max(18px, env(safe-area-inset-left));
-  display: grid;
-  place-items: center;
-}
+      background:
+        radial-gradient(
+          circle at 10% 12%,
+          rgba(255, 211, 175, 0.55),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at 90% 78%,
+          rgba(196, 187, 255, 0.56),
+          transparent 38%
+        ),
+        var(--background);
 
-.screen {
-  width: min(100%, 460px);
-  animation: screenIn 520ms cubic-bezier(.2, .75, .2, 1) both;
-}
+      overflow-x: hidden;
+    }
 
-.screen[hidden] {
-  display: none;
-}
+    button {
+      font: inherit;
+      touch-action: manipulation;
+    }
 
-.card {
-  position: relative;
-  width: 100%;
-  padding: 28px 22px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  text-align: center;
-  overflow: hidden;
-}
+    .app {
+      min-height: 100vh;
+      min-height: 100dvh;
 
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto auto 0;
-  width: 100%;
-  height: 5px;
-  background: linear-gradient(90deg, #ffb37a, #8d7df4);
-}
+      display: grid;
+      place-items: center;
 
-.card--question,
-.card--final {
-  padding-top: 72px;
-}
+      padding:
+        max(24px, env(safe-area-inset-top))
+        max(18px, env(safe-area-inset-right))
+        max(24px, env(safe-area-inset-bottom))
+        max(18px, env(safe-area-inset-left));
+    }
 
-.back-button {
-  position: absolute;
-  top: 19px;
-  left: 18px;
-  z-index: 3;
-  min-height: 38px;
-  padding: 0 13px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.76);
-  color: var(--muted);
-  font-size: 0.86rem;
-  font-weight: 800;
-  cursor: pointer;
-  box-shadow: 0 6px 16px rgba(30, 30, 30, 0.07);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: transform 160ms ease, background 160ms ease;
-}
+    .screen {
+      width: min(100%, 460px);
 
-.back-button:active {
-  transform: scale(0.96);
-  background: #fff;
-}
+      animation:
+        screen-enter
+        500ms
+        cubic-bezier(0.2, 0.8, 0.2, 1)
+        both;
+    }
 
-.eyebrow {
-  margin: 0 0 10px;
-  color: var(--accent);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
+    .screen[hidden] {
+      display: none !important;
+    }
 
-h1,
-h2 {
-  margin: 0;
-  letter-spacing: -0.045em;
-  line-height: 1.02;
-}
+    .card {
+      position: relative;
 
-h1 {
-  font-size: clamp(2.15rem, 11vw, 3.5rem);
-}
+      width: 100%;
+      padding: 30px 22px;
 
-h2 {
-  font-size: clamp(2rem, 9vw, 3.2rem);
-}
+      overflow: hidden;
 
-.lead {
-  margin: 14px 0 20px;
-  color: var(--muted);
-  font-size: 1.05rem;
-  line-height: 1.5;
-}
+      text-align: center;
 
-.gif-button {
-  width: min(100%, 310px);
-  margin: 0 auto;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--text);
-  cursor: pointer;
-  display: grid;
-  gap: 12px;
-}
+      border: 1px solid var(--border);
+      border-radius: 30px;
 
-.gif-button:active .gif-frame {
-  transform: scale(0.97) rotate(-1deg);
-}
+      background: var(--card);
+      box-shadow: var(--shadow);
 
-.gif-frame {
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  background: #fff;
-  box-shadow: 0 14px 35px rgba(30, 30, 30, 0.12);
-  transition: transform 180ms ease;
-}
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
 
-.gif-frame--square {
-  aspect-ratio: 1;
-}
+    .card::before {
+      content: "";
 
-.gif-frame--wide {
-  margin-top: 22px;
-}
+      position: absolute;
+      top: 0;
+      left: 0;
 
-.gif-frame iframe {
-  display: block !important;
-}
+      width: 100%;
+      height: 5px;
 
-.tap-label {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 46px;
-  padding: 0 20px;
-  border-radius: 999px;
-  background: var(--text);
-  color: #fff;
-  font-weight: 800;
-  box-shadow: 0 8px 20px rgba(30, 30, 30, 0.18);
-}
+      background:
+        linear-gradient(
+          90deg,
+          #ffae78,
+          #8b78f3
+        );
+    }
 
-.details {
-  margin: 24px 0 14px;
-  padding: 17px 16px;
-  border-radius: 20px;
-  background: var(--soft);
-  text-align: left;
-}
+    .card--question,
+    .card--final {
+      padding-top: 76px;
+    }
 
-.details__label {
-  color: var(--accent-dark);
-  font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-}
+    .eyebrow {
+      margin: 0 0 12px;
 
-.details p {
-  margin: 7px 0 0;
-  font-size: 1.08rem;
-  font-weight: 720;
-  line-height: 1.35;
-}
+      color: var(--purple);
 
-.feedback {
-  min-height: 24px;
-  margin: 13px 0 7px;
-  color: #b4475d;
-  font-weight: 800;
-}
+      font-size: 0.78rem;
+      font-weight: 850;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
 
-.actions {
-  position: relative;
-  min-height: 150px;
-  margin-top: 6px;
-  padding-top: 8px;
-}
+    h1,
+    h2 {
+      margin: 0;
 
-.btn {
-  min-height: 52px;
-  border: 0;
-  border-radius: 17px;
-  font-size: 1rem;
-  font-weight: 850;
-  cursor: pointer;
-  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
-}
+      line-height: 1.03;
+      letter-spacing: -0.05em;
+    }
 
-.btn:active {
-  transform: scale(0.97);
-}
+    h1 {
+      font-size: clamp(2.5rem, 12vw, 3.7rem);
+    }
 
-.btn--yes {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  padding: 0 20px;
-  color: #fff;
-  background: var(--accent);
-  box-shadow: 0 10px 25px rgba(111, 94, 232, 0.34);
-}
+    h2 {
+      font-size: clamp(2.05rem, 9.5vw, 3.3rem);
+    }
 
-.btn--yes:hover {
-  background: var(--accent-dark);
-}
+    .lead {
+      margin: 18px 0 24px;
 
-.btn--no {
-  position: absolute;
-  left: 50%;
-  bottom: 8px;
-  z-index: 2;
-  width: 92px;
-  padding: 0 15px;
-  transform: translateX(-50%);
-  color: var(--muted);
-  background: #ece9e4;
-  box-shadow: 0 6px 16px rgba(30, 30, 30, 0.08);
-  will-change: left, top, transform;
-}
+      color: var(--muted);
 
-.btn--no.is-running {
-  transform: none;
-}
+      font-size: 1.07rem;
+      font-weight: 650;
+      line-height: 1.45;
+    }
 
-.card--final {
-  padding-bottom: 24px;
-}
+    /* Pulsante Pocoyo */
 
-.final-main-gif {
-  opacity: 0;
-  transform: translateY(10px) scale(0.97);
-  animation: popIn 620ms 160ms cubic-bezier(.18, .9, .25, 1.15) forwards;
-}
+    .pocoyo-button {
+      display: grid;
+      gap: 14px;
 
-.final-reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  max-height: 0;
-  overflow: hidden;
-  transition:
-    opacity 560ms ease,
-    transform 560ms ease,
-    max-height 800ms ease;
-}
+      width: min(100%, 310px);
+      margin: 0 auto;
+      padding: 0;
 
-.final-reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-  max-height: 520px;
-}
+      border: 0;
+      background: transparent;
 
-.final-message {
-  margin: 24px 0 12px;
-  font-size: clamp(1.55rem, 7vw, 2.15rem);
-  font-weight: 900;
-  letter-spacing: -0.035em;
-  line-height: 1.08;
-}
+      cursor: pointer;
+    }
 
-.party-gif {
-  display: block;
-  width: min(70%, 230px);
-  margin: 4px auto 0;
-  object-fit: contain;
-}
+    .pocoyo-button:active .gif-box {
+      transform: scale(0.97) rotate(-1deg);
+    }
 
-.tiny-note {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 0.86rem;
-  font-weight: 700;
-}
+    .gif-box {
+      display: block;
 
-.noscript {
-  margin: 20px;
-  font-family: sans-serif;
-  text-align: center;
-}
+      width: 100%;
+      overflow: hidden;
 
-.confetti {
-  position: fixed;
-  top: -24px;
-  z-index: 10;
-  pointer-events: none;
-  font-size: clamp(18px, 5vw, 28px);
-  animation: confettiFall 1700ms linear forwards;
-}
+      border: 1px solid var(--border);
+      border-radius: 24px;
 
-@keyframes screenIn {
-  from { opacity: 0; transform: translateY(18px) scale(0.985); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
+      background:
+        radial-gradient(
+          circle,
+          #ffffff,
+          #f7f5ff
+        );
 
-@keyframes popIn {
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
+      box-shadow:
+        0 15px 38px rgba(30, 30, 30, 0.12);
 
-@keyframes confettiFall {
-  0% { transform: translate3d(0, -10px, 0) rotate(0deg); opacity: 0; }
-  12% { opacity: 1; }
-  100% { transform: translate3d(var(--drift), 110vh, 0) rotate(520deg); opacity: 0; }
-}
+      transition: transform 180ms ease;
+    }
 
-@media (min-width: 520px) {
-  .card {
-    padding: 36px 34px;
-  }
-}
+    .gif-box--square {
+      aspect-ratio: 1 / 1;
+    }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+    .gif-box img {
+      display: block;
 
-/* L'embed Tenor resta visibile, ma il tap viene gestito dal bottone esterno. */
-.gif-button .tenor-gif-embed,
-.gif-button iframe,
-.gif-button a {
-  pointer-events: none !important;
-}
+      width: 100%;
+      height: 100%;
 
+      object-fit: contain;
+    }
+
+    .tap-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 54px;
+      padding: 0 24px;
+
+      border-radius: 999px;
+
+      color: white;
+      background: var(--text);
+
+      font-size: 1.02rem;
+      font-weight: 850;
+
+      box-shadow:
+        0 10px 25px rgba(30, 30, 30, 0.18);
+    }
+
+    /* Pulsante indietro */
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 18px;
+      z-index: 10;
+
+      min-height: 40px;
+      padding: 0 14px;
+
+      border: 1px solid var(--border);
+      border-radius: 999px;
+
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.82);
+
+      font-size: 0.88rem;
+      font-weight: 800;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 7px 18px rgba(30, 30, 30, 0.08);
+    }
+
+    .back-button:active {
+      transform: scale(0.95);
+    }
+
+    /* Informazioni uscita */
+
+    .details {
+      margin: 25px 0 14px;
+      padding: 18px 17px;
+
+      border-radius: 21px;
+
+      background: var(--purple-soft);
+
+      text-align: left;
+    }
+
+    .details-label {
+      color: var(--purple-dark);
+
+      font-size: 0.78rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .details p {
+      margin: 8px 0 0;
+
+      font-size: 1.08rem;
+      font-weight: 750;
+      line-height: 1.4;
+    }
+
+    .feedback {
+      min-height: 26px;
+      margin: 14px 0 4px;
+
+      color: #b2445b;
+
+      font-size: 0.97rem;
+      font-weight: 850;
+    }
+
+    /* Bottoni sì e no */
+
+    .actions {
+      position: relative;
+
+      min-height: 175px;
+      margin-top: 6px;
+      padding-top: 8px;
+    }
+
+    .button {
+      min-height: 54px;
+
+      border: 0;
+      border-radius: 18px;
+
+      font-size: 1rem;
+      font-weight: 850;
+
+      cursor: pointer;
+
+      transition:
+        transform 180ms ease,
+        background 180ms ease,
+        box-shadow 180ms ease;
+    }
+
+    .button:active {
+      transform: scale(0.97);
+    }
+
+    .button--yes {
+      position: relative;
+      z-index: 2;
+
+      width: 100%;
+      padding: 0 20px;
+
+      color: white;
+      background: var(--purple);
+
+      box-shadow:
+        0 11px 27px rgba(113, 97, 232, 0.35);
+    }
+
+    .button--yes:active {
+      background: var(--purple-dark);
+    }
+
+    .button--no {
+      position: absolute;
+      left: 50%;
+      bottom: 8px;
+      z-index: 3;
+
+      width: 100px;
+      min-height: 50px;
+      padding: 0 15px;
+
+      transform: translateX(-50%);
+
+      color: var(--muted);
+      background: #ece9e4;
+
+      box-shadow:
+        0 7px 18px rgba(30, 30, 30, 0.09);
+
+      will-change: left, top, transform;
+    }
+
+    .button--no.is-moving {
+      transform: none;
+    }
+
+    /* Schermata finale */
+
+    .final-gif {
+      width: 100%;
+      margin-top: 24px;
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+      border-radius: 23px;
+
+      background: white;
+
+      box-shadow:
+        0 15px 38px rgba(30, 30, 30, 0.12);
+
+      opacity: 0;
+      transform: translateY(12px) scale(0.97);
+
+      animation:
+        final-gif-enter
+        650ms
+        150ms
+        cubic-bezier(0.18, 0.9, 0.25, 1.15)
+        forwards;
+    }
+
+    .final-gif img {
+      display: block;
+
+      width: 100%;
+      aspect-ratio: 498 / 336;
+
+      object-fit: cover;
+    }
+
+    .final-reveal {
+      max-height: 0;
+      overflow: hidden;
+
+      opacity: 0;
+      transform: translateY(20px);
+
+      transition:
+        opacity 550ms ease,
+        transform 550ms ease,
+        max-height 850ms ease;
+    }
+
+    .final-reveal.is-visible {
+      max-height: 600px;
+
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .final-message {
+      margin: 26px 0 14px;
+
+      font-size: clamp(1.65rem, 7vw, 2.25rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+
+    .party-gif {
+      display: block;
+
+      width: min(72%, 240px);
+      height: auto;
+      margin: 0 auto;
+
+      object-fit: contain;
+    }
+
+    .final-note {
+      margin: 10px 0 0;
+
+      color: var(--muted);
+
+      font-size: 0.9rem;
+      font-weight: 750;
+    }
+
+    /* Emoji che cadono */
+
+    .confetti {
+      position: fixed;
+      top: -40px;
+      z-index: 100;
+
+      pointer-events: none;
+
+      font-size: clamp(20px, 6vw, 30px);
+
+      animation:
+        confetti-fall
+        1800ms
+        linear
+        forwards;
+    }
+
+    @keyframes screen-enter {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.985);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes final-gif-enter {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        opacity: 0;
+        transform:
+          translate3d(0, -10px, 0)
+          rotate(0deg);
+      }
+
+      12% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate3d(
+            var(--horizontal-movement),
+            110vh,
+            0
+          )
+          rotate(520deg);
+      }
+    }
+
+    @media (min-width: 520px) {
+      .card {
+        padding-right: 34px;
+        padding-left: 34px;
+      }
+
+      .card--question,
+      .card--final {
+        padding-top: 76px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
+
 <body>
   <main class="app" aria-live="polite">
-    <section class="screen screen--active" id="welcomeScreen" aria-labelledby="welcomeTitle">
-      <div class="card card--welcome">
-        <p class="eyebrow">una cosa veloce per te</p>
-        <h1 id="welcomeTitle">Ehi Ali 🫶🏻</h1>
-        <p class="lead">clicca su Pocoyo per continuare</p>
 
-        <button class="gif-button" id="startButton" type="button" aria-label="Clicca su Pocoyo per continuare">
-          <span class="gif-frame gif-frame--square" aria-hidden="true">
-            <span class="tenor-gif-embed"
-                  data-postid="6231180995268535932"
-                  data-share-method="host"
-                  data-aspect-ratio="1"
-                  data-width="100%">
-              <a href="https://tenor.com/view/pocoyo-pocoyo-dance-pocoyo-moves-gif-6231180995268535932">Pocoyo che balla</a>
-            </span>
+    <!-- SCHERMATA INIZIALE -->
+
+    <section
+      class="screen"
+      id="welcomeScreen"
+      aria-labelledby="welcomeTitle"
+    >
+      <div class="card">
+        <p class="eyebrow">una cosa veloce per te</p>
+
+        <h1 id="welcomeTitle">
+          Ehi Ali 🫶🏻
+        </h1>
+
+        <p class="lead">
+          clicca su Pocoyo per continuare
+        </p>
+
+        <button
+          class="pocoyo-button"
+          id="startButton"
+          type="button"
+          aria-label="Clicca su Pocoyo per continuare"
+        >
+          <span class="gif-box gif-box--square">
+            <img
+              src="https://media.tenor.com/VnmaGdolZnwAAAAj/pocoyo-pocoyo-dance.gif"
+              alt="Pocoyo che balla"
+              width="498"
+              height="498"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            >
           </span>
-          <span class="tap-label">tocca qui</span>
+
+          <span class="tap-label">
+            tocca qui
+          </span>
         </button>
       </div>
     </section>
 
-    <section class="screen" id="questionScreen" aria-labelledby="questionTitle" hidden>
+    <!-- SCHERMATA DOMANDA -->
+
+    <section
+      class="screen"
+      id="questionScreen"
+      aria-labelledby="questionTitle"
+      hidden
+    >
       <div class="card card--question">
-        <button class="back-button" id="backToWelcome" type="button" aria-label="Torna alla schermata iniziale">← indietro</button>
-        <p class="eyebrow">domanda importantissima</p>
-        <h2 id="questionTitle">che dici usciamo finalmente?🙃</h2>
+
+        <button
+          class="back-button"
+          id="backToWelcome"
+          type="button"
+          aria-label="Torna alla schermata iniziale"
+        >
+          ← indietro
+        </button>
+
+        <p class="eyebrow">
+          domanda importantissima
+        </p>
+
+        <h2 id="questionTitle">
+          che dici usciamo finalmente?🙃
+        </h2>
 
         <div class="details">
-          <span class="details__label">dove e quando:</span>
-          <p>quando vuoi basta che ci vediamo🗣️🔥</p>
+          <span class="details-label">
+            dove e quando:
+          </span>
+
+          <p>
+            quando vuoi basta che ci vediamo🗣️🔥
+          </p>
         </div>
 
-        <p class="feedback" id="feedback" aria-live="assertive"></p>
+        <p
+          class="feedback"
+          id="feedback"
+          aria-live="assertive"
+        ></p>
 
         <div class="actions" id="actions">
-          <button class="btn btn--yes" id="yesButton" type="button">sì, ci sto 🫶🏻</button>
-          <button class="btn btn--no" id="noButton" type="button">no</button>
+
+          <button
+            class="button button--yes"
+            id="yesButton"
+            type="button"
+          >
+            sì, ci sto 🫶🏻
+          </button>
+
+          <button
+            class="button button--no"
+            id="noButton"
+            type="button"
+          >
+            no
+          </button>
+
         </div>
       </div>
     </section>
 
-    <section class="screen" id="finalScreen" aria-labelledby="finalTitle" hidden>
-      <div class="card card--final">
-        <button class="back-button" id="backToQuestion" type="button" aria-label="Torna alla domanda">← indietro</button>
-        <p class="eyebrow">ottima scelta</p>
-        <h2 id="finalTitle">LO SAPEVO 🫶🏻</h2>
+    <!-- SCHERMATA FINALE -->
 
-        <div class="gif-frame gif-frame--wide final-main-gif">
-          <div class="tenor-gif-embed"
-               data-postid="8867549100158698203"
-               data-share-method="host"
-               data-aspect-ratio="1.48214"
-               data-width="100%">
-            <a href="https://tenor.com/it/view/i-used-to-pray-for-times-like-this-gif-8867549100158698203">I used to pray for times like this</a>
-          </div>
+    <section
+      class="screen"
+      id="finalScreen"
+      aria-labelledby="finalTitle"
+      hidden
+    >
+      <div class="card card--final">
+
+        <button
+          class="back-button"
+          id="backToQuestion"
+          type="button"
+          aria-label="Torna alla domanda"
+        >
+          ← indietro
+        </button>
+
+        <p class="eyebrow">
+          ottima scelta
+        </p>
+
+        <h2 id="finalTitle">
+          LO SAPEVO 🫶🏻
+        </h2>
+
+        <div class="final-gif" id="finalMainGif">
+          <img
+            src="https://media1.tenor.com/m/ew_c7J9LQtsAAAAd/i-used-to-pray-for-times-like-this.gif"
+            alt="I used to pray for times like this"
+            loading="eager"
+            decoding="async"
+          >
         </div>
 
-        <div class="final-reveal" id="finalReveal" aria-hidden="true">
-          <p class="final-message">allora ci sentiamo bellissima🙃🙃</p>
+        <div
+          class="final-reveal"
+          id="finalReveal"
+          aria-hidden="true"
+        >
+          <p class="final-message">
+            allora ci sentiamo bellissima🙃🙃
+          </p>
+
           <img
             class="party-gif"
             src="https://media.giphy.com/media/FOw9h3t7oWm34HOuQr/giphy.gif"
             alt="Pocoyo che festeggia"
             loading="eager"
+            decoding="async"
           >
-          <p class="tiny-note">missione compiuta 🫶🏻</p>
+
+          <p class="final-note">
+            missione compiuta 🫶🏻
+          </p>
         </div>
       </div>
     </section>
+
   </main>
 
   <noscript>
-    <p class="noscript">Per vedere la sorpresa devi attivare JavaScript.</p>
+    Per vedere la sorpresa devi attivare JavaScript.
   </noscript>
 
   <script>
-const screens = {
-  welcome: document.querySelector('#welcomeScreen'),
-  question: document.querySelector('#questionScreen'),
-  final: document.querySelector('#finalScreen'),
-};
+    const screens = {
+      welcome: document.getElementById("welcomeScreen"),
+      question: document.getElementById("questionScreen"),
+      final: document.getElementById("finalScreen")
+    };
 
-const startButton = document.querySelector('#startButton');
-const yesButton = document.querySelector('#yesButton');
-const noButton = document.querySelector('#noButton');
-const actions = document.querySelector('#actions');
-const feedback = document.querySelector('#feedback');
-const finalReveal = document.querySelector('#finalReveal');
-const finalMainGif = document.querySelector('.final-main-gif');
-const backToWelcome = document.querySelector('#backToWelcome');
-const backToQuestion = document.querySelector('#backToQuestion');
+    const startButton =
+      document.getElementById("startButton");
 
-const noMessages = [
-  'risposta sbagliata 😶',
-  'nah, riprova dai',
-  'quel bottone non collabora',
-  'Ali, non fare la difficile 🙃',
-  'ormai resta solo il sì 🫶🏻',
-];
+    const yesButton =
+      document.getElementById("yesButton");
 
-let noAttempts = 0;
-let revealTimer;
+    const noButton =
+      document.getElementById("noButton");
 
-function showScreen(name) {
-  Object.entries(screens).forEach(([key, screen]) => {
-    const isActive = key === name;
-    screen.hidden = !isActive;
-    screen.classList.toggle('screen--active', isActive);
-  });
+    const actions =
+      document.getElementById("actions");
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+    const feedback =
+      document.getElementById("feedback");
 
-function resetQuestionState() {
-  noAttempts = 0;
-  feedback.textContent = '';
-  noButton.classList.remove('is-running');
-  noButton.style.left = '';
-  noButton.style.top = '';
-  noButton.style.bottom = '';
-  noButton.style.scale = '';
-  yesButton.style.transform = '';
-}
+    const backToWelcome =
+      document.getElementById("backToWelcome");
 
-function resetFinalState() {
-  window.clearTimeout(revealTimer);
-  finalReveal.classList.remove('is-visible');
-  finalReveal.setAttribute('aria-hidden', 'true');
-  document.querySelectorAll('.confetti').forEach((item) => item.remove());
-}
+    const backToQuestion =
+      document.getElementById("backToQuestion");
 
-function restartFinalAnimation() {
-  finalMainGif.style.animation = 'none';
-  void finalMainGif.offsetWidth;
-  finalMainGif.style.animation = '';
-}
+    const finalReveal =
+      document.getElementById("finalReveal");
 
-function moveNoButton() {
-  const areaRect = actions.getBoundingClientRect();
-  const buttonRect = noButton.getBoundingClientRect();
-  const padding = 6;
+    const finalMainGif =
+      document.getElementById("finalMainGif");
 
-  const maxX = Math.max(padding, areaRect.width - buttonRect.width - padding);
-  const maxY = Math.max(60, areaRect.height - buttonRect.height - padding);
+    const noMessages = [
+      "risposta sbagliata, riprova 🙃",
+      "quel bottone non funziona, strano...",
+      "Ali dai, non fare così",
+      "il no è momentaneamente fuori servizio",
+      "ormai ti rimane solamente il sì 🫶🏻"
+    ];
 
-  const x = padding + Math.random() * Math.max(1, maxX - padding);
-  const y = 58 + Math.random() * Math.max(1, maxY - 58);
+    let noAttempts = 0;
+    let revealTimer = null;
+    let noButtonLocked = false;
 
-  noButton.classList.add('is-running');
-  noButton.style.left = `${x}px`;
-  noButton.style.top = `${y}px`;
-  noButton.style.bottom = 'auto';
+    function showScreen(screenName) {
+      Object.entries(screens).forEach(
+        ([name, screen]) => {
+          screen.hidden = name !== screenName;
+        }
+      );
 
-  feedback.textContent = noMessages[Math.min(noAttempts, noMessages.length - 1)];
-  noAttempts += 1;
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
 
-  const scale = Math.max(0.66, 1 - noAttempts * 0.06);
-  noButton.style.scale = scale;
-  yesButton.style.transform = `scale(${Math.min(1.08, 1 + noAttempts * 0.012)})`;
-}
+    function resetQuestion() {
+      noAttempts = 0;
 
-function celebrate() {
-  const icons = ['🫶🏻', '🔥', '🙃', '✨'];
+      feedback.textContent = "";
 
-  for (let index = 0; index < 18; index += 1) {
-    const item = document.createElement('span');
-    item.className = 'confetti';
-    item.textContent = icons[index % icons.length];
-    item.style.left = `${Math.random() * 100}vw`;
-    item.style.setProperty('--drift', `${Math.random() * 140 - 70}px`);
-    item.style.animationDelay = `${Math.random() * 450}ms`;
-    document.body.appendChild(item);
+      noButton.classList.remove("is-moving");
 
-    window.setTimeout(() => item.remove(), 2300);
-  }
-}
+      noButton.style.left = "";
+      noButton.style.top = "";
+      noButton.style.bottom = "";
+      noButton.style.transform = "";
+      noButton.style.scale = "";
 
-startButton.addEventListener('click', () => {
-  resetQuestionState();
-  showScreen('question');
-});
+      yesButton.style.transform = "";
+    }
 
-backToWelcome.addEventListener('click', () => {
-  resetQuestionState();
-  showScreen('welcome');
-});
+    function resetFinal() {
+      window.clearTimeout(revealTimer);
 
-backToQuestion.addEventListener('click', () => {
-  resetFinalState();
-  resetQuestionState();
-  showScreen('question');
-});
+      finalReveal.classList.remove("is-visible");
+      finalReveal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
 
-yesButton.addEventListener('click', () => {
-  resetFinalState();
-  showScreen('final');
-  restartFinalAnimation();
-  celebrate();
+      document
+        .querySelectorAll(".confetti")
+        .forEach((emoji) => emoji.remove());
+    }
 
-  revealTimer = window.setTimeout(() => {
-    finalReveal.classList.add('is-visible');
-    finalReveal.setAttribute('aria-hidden', 'false');
-  }, 1800);
-});
+    function restartFinalAnimation() {
+      finalMainGif.style.animation = "none";
 
-['pointerenter', 'pointerdown', 'touchstart', 'click'].forEach((eventName) => {
-  noButton.addEventListener(eventName, (event) => {
-    event.preventDefault();
-    moveNoButton();
-  }, { passive: false });
-});
+      void finalMainGif.offsetWidth;
 
-window.addEventListener('resize', () => {
-  if (noButton.classList.contains('is-running')) {
-    moveNoButton();
-  }
-});
+      finalMainGif.style.animation = "";
+    }
 
+    function moveNoButton() {
+      if (noButtonLocked) {
+        return;
+      }
+
+      noButtonLocked = true;
+
+      window.setTimeout(() => {
+        noButtonLocked = false;
+      }, 120);
+
+      const areaWidth = actions.clientWidth;
+      const areaHeight = actions.clientHeight;
+
+      const buttonWidth = noButton.offsetWidth;
+      const buttonHeight = noButton.offsetHeight;
+
+      const padding = 8;
+      const minimumY = 75;
+
+      const maximumX = Math.max(
+        padding,
+        areaWidth - buttonWidth - padding
+      );
+
+      const maximumY = Math.max(
+        minimumY,
+        areaHeight - buttonHeight - padding
+      );
+
+      const randomX =
+        padding +
+        Math.random() * (maximumX - padding);
+
+      const randomY =
+        minimumY +
+        Math.random() * (maximumY - minimumY);
+
+      noButton.classList.add("is-moving");
+
+      noButton.style.left = `${randomX}px`;
+      noButton.style.top = `${randomY}px`;
+      noButton.style.bottom = "auto";
+      noButton.style.transform = "none";
+
+      feedback.textContent =
+        noMessages[
+          Math.min(
+            noAttempts,
+            noMessages.length - 1
+          )
+        ];
+
+      noAttempts += 1;
+
+      const noScale = Math.max(
+        0.65,
+        1 - noAttempts * 0.055
+      );
+
+      const yesScale = Math.min(
+        1.08,
+        1 + noAttempts * 0.012
+      );
+
+      noButton.style.scale = noScale;
+
+      yesButton.style.transform =
+        `scale(${yesScale})`;
+    }
+
+    function createConfetti() {
+      const emojis = [
+        "🫶🏻",
+        "🔥",
+        "🙃",
+        "✨"
+      ];
+
+      for (
+        let index = 0;
+        index < 20;
+        index += 1
+      ) {
+        const emoji =
+          document.createElement("span");
+
+        emoji.className = "confetti";
+
+        emoji.textContent =
+          emojis[index % emojis.length];
+
+        emoji.style.left =
+          `${Math.random() * 100}vw`;
+
+        emoji.style.setProperty(
+          "--horizontal-movement",
+          `${Math.random() * 150 - 75}px`
+        );
+
+        emoji.style.animationDelay =
+          `${Math.random() * 450}ms`;
+
+        document.body.appendChild(emoji);
+
+        window.setTimeout(() => {
+          emoji.remove();
+        }, 2500);
+      }
+    }
+
+    startButton.addEventListener(
+      "click",
+      () => {
+        resetQuestion();
+        showScreen("question");
+      }
+    );
+
+    backToWelcome.addEventListener(
+      "click",
+      () => {
+        resetQuestion();
+        showScreen("welcome");
+      }
+    );
+
+    backToQuestion.addEventListener(
+      "click",
+      () => {
+        resetFinal();
+        resetQuestion();
+        showScreen("question");
+      }
+    );
+
+    yesButton.addEventListener(
+      "click",
+      () => {
+        resetFinal();
+
+        showScreen("final");
+        restartFinalAnimation();
+        createConfetti();
+
+        revealTimer = window.setTimeout(
+          () => {
+            finalReveal.classList.add(
+              "is-visible"
+            );
+
+            finalReveal.setAttribute(
+              "aria-hidden",
+              "false"
+            );
+          },
+          1800
+        );
+      }
+    );
+
+    noButton.addEventListener(
+      "pointerdown",
+      (event) => {
+        event.preventDefault();
+        moveNoButton();
+      }
+    );
+
+    noButton.addEventListener(
+      "keydown",
+      (event) => {
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+          event.preventDefault();
+          moveNoButton();
+        }
+      }
+    );
+
+    window.addEventListener(
+      "resize",
+      () => {
+        if (
+          noButton.classList.contains(
+            "is-moving"
+          )
+        ) {
+          moveNoButton();
+        }
+      }
+    );
   </script>
-  <script async src="https://tenor.com/embed.js"></script>
 </body>
 </html>
