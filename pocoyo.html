@@ -17,14 +17,14 @@
 
   <title>Per Ali 🫶🏻</title>
 
-  <link rel="preconnect" href="https://media.tenor.com">
+  <link rel="preconnect" href="https://i.ebayimg.com">
   <link rel="preconnect" href="https://media1.tenor.com">
   <link rel="preconnect" href="https://media.giphy.com">
 
   <style>
     :root {
       --background: #f7f3ed;
-      --card: rgba(255, 255, 255, 0.88);
+      --card: rgba(255, 255, 255, 0.9);
       --text: #1d1d1f;
       --muted: #6d6964;
       --purple: #7161e8;
@@ -48,6 +48,7 @@
       min-height: 100vh;
       min-height: 100dvh;
       margin: 0;
+      overflow-x: hidden;
 
       color: var(--text);
 
@@ -70,8 +71,6 @@
           transparent 38%
         ),
         var(--background);
-
-      overflow-x: hidden;
     }
 
     button {
@@ -114,7 +113,6 @@
       padding: 30px 22px;
 
       overflow: hidden;
-
       text-align: center;
 
       border: 1px solid var(--border);
@@ -187,7 +185,7 @@
       line-height: 1.45;
     }
 
-    /* Pulsante Pocoyo */
+    /* Immagine iniziale cliccabile */
 
     .pocoyo-button {
       display: grid;
@@ -203,14 +201,15 @@
       cursor: pointer;
     }
 
-    .pocoyo-button:active .gif-box {
+    .pocoyo-button:active .image-box {
       transform: scale(0.97) rotate(-1deg);
     }
 
-    .gif-box {
+    .image-box {
       display: block;
 
       width: 100%;
+      aspect-ratio: 1 / 1;
       overflow: hidden;
 
       border: 1px solid var(--border);
@@ -229,11 +228,7 @@
       transition: transform 180ms ease;
     }
 
-    .gif-box--square {
-      aspect-ratio: 1 / 1;
-    }
-
-    .gif-box img {
+    .image-box img {
       display: block;
 
       width: 100%;
@@ -292,7 +287,7 @@
       transform: scale(0.95);
     }
 
-    /* Informazioni uscita */
+    /* Dettagli uscita */
 
     .details {
       margin: 25px 0 14px;
@@ -332,7 +327,7 @@
       font-weight: 850;
     }
 
-    /* Bottoni sì e no */
+    /* Pulsanti sì e no */
 
     .actions {
       position: relative;
@@ -489,7 +484,7 @@
       font-weight: 750;
     }
 
-    /* Emoji che cadono */
+    /* Emoji finali */
 
     .confetti {
       position: fixed;
@@ -577,7 +572,7 @@
 <body>
   <main class="app" aria-live="polite">
 
-    <!-- SCHERMATA INIZIALE -->
+    <!-- PRIMA SCHERMATA -->
 
     <section
       class="screen"
@@ -585,7 +580,9 @@
       aria-labelledby="welcomeTitle"
     >
       <div class="card">
-        <p class="eyebrow">una cosa veloce per te</p>
+        <p class="eyebrow">
+          una cosa veloce per te
+        </p>
 
         <h1 id="welcomeTitle">
           Ehi Ali 🫶🏻
@@ -601,12 +598,12 @@
           type="button"
           aria-label="Clicca su Pocoyo per continuare"
         >
-          <span class="gif-box gif-box--square">
+          <span class="image-box">
             <img
-              src="https://media.tenor.com/VnmaGdolZnwAAAAj/pocoyo-pocoyo-dance.gif"
-              alt="Pocoyo che balla"
-              width="498"
-              height="498"
+              src="https://i.ebayimg.com/images/g/CK4AAeSwJQppwpgm/s-l1600.webp"
+              alt="Pocoyo che saluta"
+              width="1600"
+              height="1600"
               loading="eager"
               decoding="async"
               fetchpriority="high"
@@ -620,7 +617,7 @@
       </div>
     </section>
 
-    <!-- SCHERMATA DOMANDA -->
+    <!-- SECONDA SCHERMATA -->
 
     <section
       class="screen"
@@ -685,7 +682,7 @@
       </div>
     </section>
 
-    <!-- SCHERMATA FINALE -->
+    <!-- TERZA SCHERMATA -->
 
     <section
       class="screen"
@@ -830,6 +827,7 @@
       window.clearTimeout(revealTimer);
 
       finalReveal.classList.remove("is-visible");
+
       finalReveal.setAttribute(
         "aria-hidden",
         "true"
